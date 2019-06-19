@@ -36,16 +36,19 @@ type SeriesFile struct {
 	path       string
 	partitions []*SeriesPartition
 
+	maxCompactionConcurrency int
+
 	refs sync.RWMutex // RWMutex to track references to the SeriesFile that are in use.
 
 	Logger *zap.Logger
 }
 
 // NewSeriesFile returns a new instance of SeriesFile.
-func NewSeriesFile(path string) *SeriesFile {
+func NewSeriesFile(path string, maxCompactionConcurrency int) *SeriesFile {
 	return &SeriesFile{
-		path:   path,
-		Logger: zap.NewNop(),
+		path:                     path,
+		maxCompactionConcurrency: maxCompactionConcurrency,
+		Logger:                   zap.NewNop(),
 	}
 }
 
@@ -61,7 +64,7 @@ func (f *SeriesFile) Open() error {
 	}
 
 	// Limit concurrent series file compactions
-	compactionLimiter := limiter.NewFixed(1)
+	compactionLimiter := limiter.NewFixed(f.maxCompactionConcurrency)
 
 	// Open partitions.
 	f.partitions = make([]*SeriesPartition, 0, SeriesFilePartitionN)

@@ -510,7 +510,20 @@ func (s *Store) openSeriesFile(database string) (*SeriesFile, error) {
 		return sfile, nil
 	}
 
-	sfile := NewSeriesFile(filepath.Join(s.path, database, SeriesFileDirectory))
+	// Setup a shared limiter for compactions
+	lim := s.EngineOptions.Config.SeriesFileMaxConcurrentCompactions
+	if lim == 0 {
+		lim = runtime.GOMAXPROCS(0)
+
+		if lim < 1 {
+			lim = 1
+		}
+	}
+	if lim > SeriesFilePartitionN {
+		lim = SeriesFilePartitionN
+	}
+
+	sfile := NewSeriesFile(filepath.Join(s.path, database, SeriesFileDirectory), lim)
 	sfile.Logger = s.baseLogger
 	if err := sfile.Open(); err != nil {
 		return nil, err
