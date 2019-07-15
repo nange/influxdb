@@ -4,10 +4,11 @@
 
 1. [14256](https://github.com/influxdata/influxdb/pull/14256): Add time zone support to UI
 2. [14243](https://github.com/influxdata/influxdb/pull/14243): Addded new storage inspection tool to verify tsm files
+3. [14353](https://github.com/influxdata/influxdb/pull/14353): Require a token to be supplied for all task creation
 
 ### Bug Fixes
 
-1. [14287](https://github.com/influxdata/influxdb/pull/14287) Fix incorrect reporting of task as successful when error occurs during result iteration 
+1. [14287](https://github.com/influxdata/influxdb/pull/14287): Fix incorrect reporting of task as successful when error occurs during result iteration
 
 ### Known Issues
 
