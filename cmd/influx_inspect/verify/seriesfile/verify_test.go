@@ -78,7 +78,7 @@ func NewTest(t *testing.T) *Test {
 
 	// create a series file in the directory
 	err = func() error {
-		seriesFile := tsdb.NewSeriesFile(dir)
+		seriesFile := tsdb.NewSeriesFile(dir, 0)
 		if err := seriesFile.Open(); err != nil {
 			return err
 		}

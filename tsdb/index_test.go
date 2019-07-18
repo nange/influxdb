@@ -341,7 +341,7 @@ func MustNewIndex(index string, eopts ...EngineOption) *Index {
 		panic(err)
 	}
 
-	sfile := tsdb.NewSeriesFile(seriesPath)
+	sfile := tsdb.NewSeriesFile(seriesPath, 0)
 	if err := sfile.Open(); err != nil {
 		panic(err)
 	}
@@ -403,7 +403,7 @@ func (i *Index) Reopen() error {
 		return err
 	}
 
-	i.sfile = tsdb.NewSeriesFile(i.sfile.Path())
+	i.sfile = tsdb.NewSeriesFile(i.sfile.Path(), 0)
 	if err := i.sfile.Open(); err != nil {
 		return err
 	}

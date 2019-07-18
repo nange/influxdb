@@ -7,6 +7,7 @@ import (
 	"fmt"
 	"os"
 	"path/filepath"
+	"runtime"
 	"sort"
 	"sync"
 
@@ -45,6 +46,17 @@ type SeriesFile struct {
 
 // NewSeriesFile returns a new instance of SeriesFile.
 func NewSeriesFile(path string, maxCompactionConcurrency int) *SeriesFile {
+	if maxCompactionConcurrency == 0 {
+		maxCompactionConcurrency = runtime.GOMAXPROCS(0)
+
+		if maxCompactionConcurrency < 1 {
+			maxCompactionConcurrency = 1
+		}
+	}
+	if maxCompactionConcurrency > SeriesFilePartitionN {
+		maxCompactionConcurrency = SeriesFilePartitionN
+	}
+
 	return &SeriesFile{
 		path:                     path,
 		maxCompactionConcurrency: maxCompactionConcurrency,

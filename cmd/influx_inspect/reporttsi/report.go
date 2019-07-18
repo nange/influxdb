@@ -127,7 +127,7 @@ func (cmd *Command) Run(args ...string) error {
 }
 
 func (cmd *Command) run() error {
-	cmd.sfile = tsdb.NewSeriesFile(cmd.seriesFilePath)
+	cmd.sfile = tsdb.NewSeriesFile(cmd.seriesFilePath, 0)
 	cmd.sfile.Logger = logger.New(os.Stderr)
 	if err := cmd.sfile.Open(); err != nil {
 		return err

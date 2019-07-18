@@ -293,7 +293,7 @@ func NewSeriesFile() *SeriesFile {
 	if err != nil {
 		panic(err)
 	}
-	return &SeriesFile{SeriesFile: tsdb.NewSeriesFile(dir)}
+	return &SeriesFile{SeriesFile: tsdb.NewSeriesFile(dir, 0)}
 }
 
 // MustOpenSeriesFile returns a new, open instance of SeriesFile. Panic on error.
@@ -316,6 +316,6 @@ func (f *SeriesFile) Reopen() error {
 	if err := f.SeriesFile.Close(); err != nil {
 		return err
 	}
-	f.SeriesFile = tsdb.NewSeriesFile(f.SeriesFile.Path())
+	f.SeriesFile = tsdb.NewSeriesFile(f.SeriesFile.Path(), 0)
 	return nil
 }

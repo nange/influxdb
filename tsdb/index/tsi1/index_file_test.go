@@ -52,7 +52,7 @@ func TestGenerateIndexFile(t *testing.T) {
 // Ensure index file generated with uvarint encoding can be loaded.
 func TestGenerateIndexFile_Uvarint(t *testing.T) {
 	// Load previously generated series file.
-	sfile := tsdb.NewSeriesFile("testdata/uvarint/_series")
+	sfile := tsdb.NewSeriesFile("testdata/uvarint/_series", 0)
 	if err := sfile.Open(); err != nil {
 		t.Fatal(err)
 	}

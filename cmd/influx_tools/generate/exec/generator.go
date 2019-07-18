@@ -38,7 +38,7 @@ func (g *Generator) Run(ctx context.Context, database, shardPath string, groups 
 	)
 
 	dbPath := path.Dir(shardPath)
-	g.sfile = tsdb.NewSeriesFile(filepath.Join(dbPath, tsdb.SeriesFileDirectory))
+	g.sfile = tsdb.NewSeriesFile(filepath.Join(dbPath, tsdb.SeriesFileDirectory), 0)
 	if err := g.sfile.Open(); err != nil {
 		return err
 	}

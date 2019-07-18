@@ -221,7 +221,7 @@ func NewTempShard(index string) *TempShard {
 	}
 
 	// Create series file.
-	sfile := NewSeriesFile(filepath.Join(dir, "db0", SeriesFileDirectory))
+	sfile := NewSeriesFile(filepath.Join(dir, "db0", SeriesFileDirectory), 0)
 	sfile.Logger = logger.New(os.Stdout)
 	if err := sfile.Open(); err != nil {
 		panic(err)

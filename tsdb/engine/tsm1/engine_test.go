@@ -2484,7 +2484,7 @@ func NewEngine(index string) (*Engine, error) {
 	}
 
 	// Setup series file.
-	sfile := tsdb.NewSeriesFile(filepath.Join(dbPath, tsdb.SeriesFileDirectory))
+	sfile := tsdb.NewSeriesFile(filepath.Join(dbPath, tsdb.SeriesFileDirectory), 0)
 	sfile.Logger = logger.New(os.Stdout)
 	if err = sfile.Open(); err != nil {
 		return nil, err
@@ -2558,7 +2558,7 @@ func (e *Engine) Reopen() error {
 	}
 
 	// Re-open series file. Must create a new series file using the same data.
-	e.sfile = tsdb.NewSeriesFile(e.sfile.Path())
+	e.sfile = tsdb.NewSeriesFile(e.sfile.Path(), 0)
 	if err := e.sfile.Open(); err != nil {
 		return err
 	}
@@ -2651,7 +2651,7 @@ func NewSeriesFile() *SeriesFile {
 	if err != nil {
 		panic(err)
 	}
-	return &SeriesFile{SeriesFile: tsdb.NewSeriesFile(dir)}
+	return &SeriesFile{SeriesFile: tsdb.NewSeriesFile(dir, 0)}
 }
 
 // MustOpenSeriesFile returns a new, open instance of SeriesFile. Panic on error.

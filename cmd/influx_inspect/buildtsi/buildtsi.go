@@ -114,7 +114,7 @@ func (cmd *Command) run(dataDir, walDir string) error {
 func (cmd *Command) processDatabase(dbName, dataDir, walDir string) error {
 	cmd.Logger.Info("Rebuilding database", zap.String("name", dbName))
 
-	sfile := tsdb.NewSeriesFile(filepath.Join(dataDir, tsdb.SeriesFileDirectory))
+	sfile := tsdb.NewSeriesFile(filepath.Join(dataDir, tsdb.SeriesFileDirectory), 0)
 	sfile.Logger = cmd.Logger
 	if err := sfile.Open(); err != nil {
 		return err

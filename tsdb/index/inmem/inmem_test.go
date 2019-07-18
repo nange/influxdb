@@ -167,7 +167,7 @@ func newSeriesFileWrapper() *seriesFileWrapper {
 	if err != nil {
 		panic(err)
 	}
-	return &seriesFileWrapper{SeriesFile: tsdb.NewSeriesFile(dir)}
+	return &seriesFileWrapper{SeriesFile: tsdb.NewSeriesFile(dir, 0)}
 }
 
 // mustOpenSeriesFile returns a new, open instance of seriesFileWrapper. Panic on error.

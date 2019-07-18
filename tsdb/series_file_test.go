@@ -192,7 +192,7 @@ func NewSeriesFile() *SeriesFile {
 	if err != nil {
 		panic(err)
 	}
-	return &SeriesFile{SeriesFile: tsdb.NewSeriesFile(dir)}
+	return &SeriesFile{SeriesFile: tsdb.NewSeriesFile(dir, 0)}
 }
 
 func NewBrokenSeriesFile(content []byte) *SeriesFile {
@@ -233,7 +233,7 @@ func (f *SeriesFile) Reopen() error {
 	if err := f.SeriesFile.Close(); err != nil {
 		return err
 	}
-	f.SeriesFile = tsdb.NewSeriesFile(f.SeriesFile.Path())
+	f.SeriesFile = tsdb.NewSeriesFile(f.SeriesFile.Path(), 0)
 	return f.SeriesFile.Open()
 }
 

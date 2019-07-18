@@ -203,7 +203,7 @@ func (i *importer) startSeriesFile() error {
 	dataPath := filepath.Join(i.dataDir, i.db)
 	shardPath := filepath.Join(i.dataDir, i.db, i.rpi.Name)
 
-	i.sfile = tsdb.NewSeriesFile(filepath.Join(dataPath, tsdb.SeriesFileDirectory))
+	i.sfile = tsdb.NewSeriesFile(filepath.Join(dataPath, tsdb.SeriesFileDirectory), 0)
 	if err := i.sfile.Open(); err != nil {
 		return err
 	}
