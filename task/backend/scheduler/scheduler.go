@@ -16,7 +16,7 @@ type ID influxdb.ID
 // Checkpointer allows us to restart a service from the last time we executed.
 type Checkpointer interface {
 	// Checkpoint saves the last checkpoint a id has reached.
-	Checkpoint(ctx context.Context, id ID, t time.Time) error
+	Checkpoint(ctx context.Context, id ID, t time.Time) error // metrics: count checkpoints?
 
 	// Last stored checkpoint.
 	Last(ctx context.Context, id ID) (time.Time, error)
