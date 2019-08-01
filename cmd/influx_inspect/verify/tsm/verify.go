@@ -32,7 +32,7 @@ func NewCommand() *Command {
 func (cmd *Command) Run(args ...string) error {
 	var path string
 	fs := flag.NewFlagSet("verify", flag.ExitOnError)
-	fs.StringVar(&path, "dir", os.Getenv("HOME")+"/.influxdb", "Root storage path. [$HOME/.influxdb]")
+	fs.StringVar(&path, "dir", os.Getenv("HOME")+"/.rdb", "Root storage path. [$HOME/.rdb]")
 
 	fs.SetOutput(cmd.Stdout)
 	fs.Usage = cmd.printUsage
@@ -113,7 +113,7 @@ Usage: influx_inspect verify [flags]
 
     -dir <path>
             Root storage path
-            Defaults to "%[1]s/.influxdb".
+            Defaults to "%[1]s/.rdb".
  `, os.Getenv("HOME"))
 
 	fmt.Fprintf(cmd.Stdout, usage)

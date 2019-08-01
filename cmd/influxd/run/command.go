@@ -20,15 +20,13 @@ import (
 )
 
 const logo = `
- 8888888           .d888 888                   8888888b.  888888b.
-   888            d88P"  888                   888  "Y88b 888  "88b
-   888            888    888                   888    888 888  .88P
-   888   88888b.  888888 888 888  888 888  888 888    888 8888888K.
-   888   888 "88b 888    888 888  888  Y8bd8P' 888    888 888  "Y88b
-   888   888  888 888    888 888  888   X88K   888    888 888    888
-   888   888  888 888    888 Y88b 888 .d8""8b. 888  .d88P 888   d88P
- 8888888 888  888 888    888  "Y88888 888  888 8888888P"  8888888P"
-
+ _____  _____  ____  
+ |  __ \|  __ \|  _ \ 
+ | |__) | |  | | |_) |
+ |  _  /| |  | |  _ < 
+ | | \ \| |__| | |_) |
+ |_|  \_\_____/|____/ 
+                     
 `
 
 // Command represents the command executed by "influxd run".
@@ -85,7 +83,7 @@ func (cmd *Command) Run(args ...string) error {
 
 	// Validate the configuration.
 	if err := config.Validate(); err != nil {
-		return fmt.Errorf("%s. To generate a valid configuration file run `influxd config > influxdb.generated.conf`", err)
+		return fmt.Errorf("%s. To generate a valid configuration file run `influxd config > rdb.generated.conf`", err)
 	}
 
 	var logErr error
@@ -107,7 +105,7 @@ func (cmd *Command) Run(args ...string) error {
 	}
 
 	// Mark start-up in log.
-	cmd.Logger.Info("InfluxDB starting",
+	cmd.Logger.Info("RDB starting",
 		zap.String("version", cmd.Version),
 		zap.String("branch", cmd.Branch),
 		zap.String("commit", cmd.Commit))
@@ -245,14 +243,13 @@ func (cmd *Command) ParseConfig(path string) (*Config, error) {
 	return config, nil
 }
 
-const usage = `Runs the InfluxDB server.
+const usage = `Runs the RDB server.
 
-Usage: influxd run [flags]
+Usage: rdbd run [flags]
 
     -config <path>
             Set the path to the configuration file.
-            This defaults to the environment variable INFLUXDB_CONFIG_PATH,
-            ~/.influxdb/influxdb.conf, or /etc/influxdb/influxdb.conf if a file
+            ~/.rdb/rdb.conf, or /etc/rdb/influxdb.conf if a file
             is present at any of these locations.
             Disable the automatic loading of a configuration file using
             the null device (such as /dev/null).
@@ -290,8 +287,8 @@ func (opt *Options) GetConfigPath() string {
 	}
 
 	for _, path := range []string{
-		os.ExpandEnv("${HOME}/.influxdb/influxdb.conf"),
-		"/etc/influxdb/influxdb.conf",
+		os.ExpandEnv("${HOME}/.rdb/rdb.conf"),
+		"/etc/rdb/rdb.conf",
 	} {
 		if _, err := os.Stat(path); err == nil {
 			return path

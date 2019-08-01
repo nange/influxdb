@@ -199,7 +199,7 @@ func (c *CommandLine) Run() error {
 
 	if len(c.ServerVersion) == 0 {
 		fmt.Printf("WARN: Connected to %s, but found no server version.\n", c.Client.Addr())
-		fmt.Printf("Are you sure an InfluxDB server is listening at the given address?\n")
+		fmt.Printf("Are you sure an RDB server is listening at the given address?\n")
 	} else {
 		fmt.Printf("Connected to %s version %s\n", c.Client.Addr(), c.ServerVersion)
 	}
@@ -353,7 +353,7 @@ func (c *CommandLine) Connect(cmd string) error {
 
 	// Create copy of the current client config and create a new client.
 	ClientConfig := c.ClientConfig
-	ClientConfig.UserAgent = "InfluxDBShell/" + c.ClientVersion
+	ClientConfig.UserAgent = "RDBShell/" + c.ClientVersion
 	ClientConfig.URL = URL
 	ClientConfig.Proxy = http.ProxyFromEnvironment
 
@@ -1160,7 +1160,7 @@ func (c *CommandLine) gopher() {
 
 // Version prints the CLI version.
 func (c *CommandLine) Version() {
-	fmt.Println("InfluxDB shell version:", c.ClientVersion)
+	fmt.Println("RDB shell version:", c.ClientVersion)
 }
 
 func (c *CommandLine) exit() {

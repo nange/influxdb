@@ -27,9 +27,9 @@ func (cmd *Command) Run(args ...string) error {
 }
 
 const usage = `
-Tools for managing and querying InfluxDB data.
+Tools for managing and querying RDB data.
 
-Usage: influx-tools command [arguments]
+Usage: r-tools command [arguments]
 
 The commands are:
 
@@ -39,5 +39,5 @@ The commands are:
     gen-exec             generates data
     help                 display this help message
 
-Use "influx-tools command -help" for more information about a command.
+Use "r-tools command -help" for more information about a command.
 `

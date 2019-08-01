@@ -103,7 +103,7 @@ func makePost(url string, points io.Reader) (*http.Response, error) {
 	body, _ := ioutil.ReadAll(resp.Body)
 
 	if resp.StatusCode != 204 {
-		return resp, fmt.Errorf("Write returned non-204 status code\n  StatusCode: %v\n  InfluxDB Error: %v\n", resp.StatusCode, string(body))
+		return resp, fmt.Errorf("Write returned non-204 status code\n  StatusCode: %v\n  RDB Error: %v\n", resp.StatusCode, string(body))
 	}
 
 	resp.Body.Close()

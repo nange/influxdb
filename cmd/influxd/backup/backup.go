@@ -591,18 +591,18 @@ func (cmd *Command) requestInfo(request *snapshotter.Request) (*snapshotter.Resp
 // printUsage prints the usage message to STDERR.
 func (cmd *Command) printUsage() {
 	fmt.Fprintf(cmd.Stdout, `
-Creates a backup copy of specified InfluxDB OSS database(s) and saves the files in an Enterprise-compatible
+Creates a backup copy of specified RDB OSS database(s) and saves the files in an Enterprise-compatible
 format to PATH (directory where backups are saved). 
 
 Usage: influxd backup [options] PATH
 
     -portable
-            Required to generate backup files in a portable format that can be restored to InfluxDB OSS or InfluxDB 
+            Required to generate backup files in a portable format that can be restored to RDB OSS or RDB 
             Enterprise. Use unless the legacy backup is required.
     -host <host:port>
-            InfluxDB OSS host to back up from. Optional. Defaults to 127.0.0.1:8088.
+            RDB OSS host to back up from. Optional. Defaults to 127.0.0.1:8088.
     -db <name>
-            InfluxDB OSS database name to back up. Optional. If not specified, all databases are backed up when 
+            RDB OSS database name to back up. Optional. If not specified, all databases are backed up when 
             using '-portable'.
     -rp <name>
             Retention policy to use for the backup. Optional. If not specified, all retention policies are used by 

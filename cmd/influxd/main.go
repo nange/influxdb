@@ -158,12 +158,12 @@ func (cmd *VersionCommand) Run(args ...string) error {
 	}
 
 	// Print version info.
-	fmt.Fprintf(cmd.Stdout, "InfluxDB v%s (git: %s %s)\n", version, branch, commit)
+	fmt.Fprintf(cmd.Stdout, "RDB v%s (git: %s %s)\n", version, branch, commit)
 
 	return nil
 }
 
-var versionUsage = `Displays the InfluxDB version, build branch and git commit hash.
+var versionUsage = `Displays the RDB version, build branch and git commit hash.
 
-Usage: influxd version
+Usage: rdbd version
 `

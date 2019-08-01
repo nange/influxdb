@@ -38,14 +38,14 @@ func init() {
 func main() {
 	c := cli.New(version)
 
-	fs := flag.NewFlagSet("InfluxDB shell version "+version, flag.ExitOnError)
-	fs.StringVar(&c.Host, "host", client.DefaultHost, "Influxdb host to connect to.")
-	fs.IntVar(&c.Port, "port", client.DefaultPort, "Influxdb port to connect to.")
-	fs.StringVar(&c.ClientConfig.UnixSocket, "socket", "", "Influxdb unix socket to connect to.")
+	fs := flag.NewFlagSet("RDB shell version "+version, flag.ExitOnError)
+	fs.StringVar(&c.Host, "host", client.DefaultHost, "RDB host to connect to.")
+	fs.IntVar(&c.Port, "port", client.DefaultPort, "RDB port to connect to.")
+	fs.StringVar(&c.ClientConfig.UnixSocket, "socket", "", "RDB unix socket to connect to.")
 	fs.StringVar(&c.ClientConfig.Username, "username", "", "Username to connect to the server.")
 	fs.StringVar(&c.ClientConfig.Password, "password", "", `Password to connect to the server.  Leaving blank will prompt for password (--password="").`)
 	fs.StringVar(&c.Database, "database", c.Database, "Database to connect to the server.")
-	fs.Var(&c.Type, "type", "query language for executing commands or invoking the REPL: influxql, flux")
+	fs.Var(&c.Type, "type", "query language for executing commands or invoking the REPL: rql, flux")
 	fs.BoolVar(&c.Ssl, "ssl", false, "Use https for connecting to cluster.")
 	fs.BoolVar(&c.ClientConfig.UnsafeSsl, "unsafeSsl", false, "Set this when connecting to the cluster using https and not use SSL verification.")
 	fs.StringVar(&c.Format, "format", defaultFormat, "Format specifies the format of the server responses:  json, csv, or column.")
@@ -54,7 +54,7 @@ func main() {
 	fs.BoolVar(&c.Pretty, "pretty", false, "Turns on pretty print for the json format.")
 	fs.IntVar(&c.NodeID, "node", 0, "Specify the node that data should be retrieved from (enterprise only).")
 	fs.StringVar(&c.Execute, "execute", c.Execute, "Execute command and quit.")
-	fs.BoolVar(&c.ShowVersion, "version", false, "Displays the InfluxDB version.")
+	fs.BoolVar(&c.ShowVersion, "version", false, "Displays the RDB version.")
 	fs.BoolVar(&c.Import, "import", false, "Import a previous database.")
 	fs.IntVar(&c.ImporterConfig.PPS, "pps", defaultPPS, "How many points per second the import will allow.  By default it is zero and will not throttle importing.")
 	fs.StringVar(&c.ImporterConfig.Path, "path", "", "path to the file to import")
@@ -62,7 +62,7 @@ func main() {
 
 	// Define our own custom usage to print
 	fs.Usage = func() {
-		fmt.Println(`Usage of influx:
+		fmt.Println(`Usage of rdb:
   -version
        Display the version and exit.
   -host 'host name'
@@ -83,7 +83,7 @@ func main() {
         Set this when connecting to the cluster using https and not use SSL verification.
   -execute 'command'
        Execute command and quit.
-  -type 'influxql|flux'
+  -type 
        Type specifies the query language for executing commands or when invoking the REPL.
   -format 'json|csv|column'
        Format specifies the format of the server responses:  json, csv, or column.
@@ -104,11 +104,11 @@ func main() {
 
 Examples:
 
-    # Use influx in a non-interactive mode to query the database "metrics" and pretty print json:
-    $ influx -database 'metrics' -execute 'select * from cpu' -format 'json' -pretty
+    # Use rdb in a non-interactive mode to query the database "metrics" and pretty print json:
+    $ rdb -database 'metrics' -execute 'select * from cpu' -format 'json' -pretty
 
     # Connect to a specific database on startup and set database context:
-    $ influx -database 'metrics' -host 'localhost' -port '8086'`)
+    $ rdb -database 'metrics' -host 'localhost' -port '8086'`)
 	}
 	fs.Parse(os.Args[1:])
 

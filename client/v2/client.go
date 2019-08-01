@@ -90,7 +90,7 @@ type Client interface {
 // Client is safe for concurrent use by multiple goroutines.
 func NewHTTPClient(conf HTTPConfig) (Client, error) {
 	if conf.UserAgent == "" {
-		conf.UserAgent = "InfluxDBClient"
+		conf.UserAgent = "RDBClient"
 	}
 
 	u, err := url.Parse(conf.Addr)
@@ -165,7 +165,7 @@ func (c *client) Ping(timeout time.Duration) (time.Duration, string, error) {
 		return 0, "", err
 	}
 
-	version := resp.Header.Get("X-Influxdb-Version")
+	version := resp.Header.Get("X-RDB-Version")
 	return time.Since(now), version, nil
 }
 
@@ -595,7 +595,7 @@ func checkResponse(resp *http.Response) error {
 	// If we lack a X-Influxdb-Version header, then we didn't get a response from influxdb
 	// but instead some other service. If the error code is also a 500+ code, then some
 	// downstream loadbalancer/proxy/etc had an issue and we should report that.
-	if resp.Header.Get("X-Influxdb-Version") == "" && resp.StatusCode >= http.StatusInternalServerError {
+	if resp.Header.Get("X-RDB-Version") == "" && resp.StatusCode >= http.StatusInternalServerError {
 		body, err := ioutil.ReadAll(resp.Body)
 		if err != nil || len(body) == 0 {
 			return fmt.Errorf("received status code %d from downstream server", resp.StatusCode)

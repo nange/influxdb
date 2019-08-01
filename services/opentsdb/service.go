@@ -373,7 +373,7 @@ func (s *Service) handleTelnetConn(conn net.Conn) {
 		inputStrs := strings.Fields(line)
 
 		if len(inputStrs) == 1 && inputStrs[0] == "version" {
-			conn.Write([]byte("InfluxDB TSDB proxy"))
+			conn.Write([]byte("RDB TSDB proxy"))
 			continue
 		}
 

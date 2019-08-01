@@ -37,7 +37,7 @@ func NewCommand() *Command {
 // Run executes the command.
 func (cmd *Command) Run(args ...string) error {
 	fs := flag.NewFlagSet("verify-seriesfile", flag.ExitOnError)
-	fs.StringVar(&cmd.dir, "dir", filepath.Join(os.Getenv("HOME"), ".influxdb", "data"),
+	fs.StringVar(&cmd.dir, "dir", filepath.Join(os.Getenv("HOME"), ".rdb", "data"),
 		"Data directory.")
 	fs.StringVar(&cmd.db, "db", "",
 		"Only use this database inside of the data directory.")
@@ -100,11 +100,11 @@ func (cmd *Command) Run(args ...string) error {
 func (cmd *Command) printUsage() {
 	usage := `Verifies the integrity of Series files.
 
-Usage: influx_inspect verify-seriesfile [flags]
+Usage: r_inspect verify-seriesfile [flags]
 
     -dir <path>
             Root data path.
-            Defaults to "%[1]s/.influxdb/data".
+            Defaults to "%[1]s/.rdb/data".
     -db <name>
             Only verify this database inside of the data directory.
     -series-file <path>

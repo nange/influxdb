@@ -27,9 +27,9 @@ func (cmd *Command) Run(args ...string) error {
 }
 
 const usage = `
-Configure and start an InfluxDB server.
+Configure and start an R-DB server.
 
-Usage: influxd [[command] [arguments]]
+Usage: rdbd [[command] [arguments]]
 
 The commands are:
 
@@ -38,9 +38,9 @@ The commands are:
     help                 display this help message
     restore              uses a snapshot of a data node to rebuild a cluster
     run                  run node with existing configuration
-    version              displays the InfluxDB version
+    version              displays the R-DB version
 
 "run" is the default command.
 
-Use "influxd [command] -help" for more information about a command.
+Use "rdbd [command] -help" for more information about a command.
 `

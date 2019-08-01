@@ -49,7 +49,7 @@ func (cmd *PrintConfigCommand) Run(args ...string) error {
 
 	// Validate the configuration.
 	if err := config.Validate(); err != nil {
-		return fmt.Errorf("%s. To generate a valid configuration file run `influxd config > influxdb.generated.conf`", err)
+		return fmt.Errorf("%s. To generate a valid configuration file run `rdbd config > rdb.generated.conf`", err)
 	}
 
 	toml.NewEncoder(cmd.Stdout).Encode(config)
@@ -80,12 +80,11 @@ func (cmd *PrintConfigCommand) parseConfig(path string) (*Config, error) {
 
 var printConfigUsage = `Displays the default configuration.
 
-Usage: influxd config [flags]
+Usage: rdbd config [flags]
 
     -config <path>
             Set the path to the initial configuration file.
-            This defaults to the environment variable INFLUXDB_CONFIG_PATH,
-            ~/.influxdb/influxdb.conf, or /etc/influxdb/influxdb.conf if a file
+            ~/.rdb/rdb.conf, or /etc/rdb/rdb.conf if a file
             is present at any of these locations.
             Disable the automatic loading of a configuration file using
             the null device (such as /dev/null).

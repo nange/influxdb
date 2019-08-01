@@ -185,7 +185,7 @@ func NewClient(c Config) (*Client, error) {
 		precision:  c.Precision,
 	}
 	if client.userAgent == "" {
-		client.userAgent = "InfluxDBClient"
+		client.userAgent = "RDBClient"
 	}
 	return &client, nil
 }
@@ -435,7 +435,7 @@ func (c *Client) Ping() (time.Duration, string, error) {
 	}
 	defer resp.Body.Close()
 
-	version := resp.Header.Get("X-Influxdb-Version")
+	version := resp.Header.Get("X-RDB-Version")
 	return time.Since(now), version, nil
 }
 

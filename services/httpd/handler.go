@@ -218,7 +218,7 @@ func NewHandler(c Config) *Handler {
 
 	if !c.FluxEnabled {
 		fluxRoute.HandlerFunc = func(w http.ResponseWriter, r *http.Request) {
-			http.Error(w, "Flux query service disabled. Verify flux-enabled=true in the [http] section of the InfluxDB config.", http.StatusForbidden)
+			http.Error(w, "Flux query service disabled. Verify flux-enabled=true in the [http] section of the R-DB config.", http.StatusForbidden)
 		}
 	} else {
 		fluxRoute.HandlerFunc = h.serveFluxQuery
@@ -379,8 +379,8 @@ func (h *Handler) ServeHTTP(w http.ResponseWriter, r *http.Request) {
 	start := time.Now()
 
 	// Add version and build header to all InfluxDB requests.
-	w.Header().Add("X-Influxdb-Version", h.Version)
-	w.Header().Add("X-Influxdb-Build", h.BuildType)
+	w.Header().Add("X-RDB-Version", h.Version)
+	w.Header().Add("X-RDB-Build", h.BuildType)
 
 	if strings.HasPrefix(r.URL.Path, "/debug/pprof") && h.Config.PprofEnabled {
 		h.handleProfiles(w, r)
@@ -1477,7 +1477,7 @@ func (h *Handler) httpError(w http.ResponseWriter, errmsg string, code int) {
 		w.Header().Set("WWW-Authenticate", fmt.Sprintf("Basic realm=\"%s\"", h.Config.Realm))
 	} else if code/100 != 2 {
 		sz := math.Min(float64(len(errmsg)), 1024.0)
-		w.Header().Set("X-InfluxDB-Error", errmsg[:int(sz)])
+		w.Header().Set("X-RDB-Error", errmsg[:int(sz)])
 	}
 
 	response := Response{Err: errors.New(errmsg)}
@@ -1693,8 +1693,8 @@ func cors(inner http.Handler) http.Handler {
 
 			w.Header().Set(`Access-Control-Expose-Headers`, strings.Join([]string{
 				`Date`,
-				`X-InfluxDB-Version`,
-				`X-InfluxDB-Build`,
+				`X-RDB-Version`,
+				`X-RDB-Build`,
 			}, ", "))
 		}
 
@@ -1749,7 +1749,7 @@ func (h *Handler) logging(inner http.Handler, name string) http.Handler {
 
 		// Log server errors.
 		if l.Status()/100 == 5 {
-			errStr := l.Header().Get("X-InfluxDB-Error")
+			errStr := l.Header().Get("X-RDB-Error")
 			if errStr != "" {
 				h.Logger.Error(fmt.Sprintf("[%d] - %q", l.Status(), errStr))
 			}

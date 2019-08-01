@@ -18,10 +18,10 @@ const (
 	DefaultBindAddress = ":8086"
 
 	// DefaultRealm is the default realm sent back when issuing a basic auth challenge.
-	DefaultRealm = "InfluxDB"
+	DefaultRealm = "RDB"
 
 	// DefaultBindSocket is the default unix socket to bind to.
-	DefaultBindSocket = "/var/run/influxdb.sock"
+	DefaultBindSocket = "/var/run/rdb.sock"
 
 	// DefaultMaxBodySize is the default maximum size of a client request body, in bytes. Specify 0 for no limit.
 	DefaultMaxBodySize = 25e6

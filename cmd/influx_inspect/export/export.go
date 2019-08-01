@@ -58,9 +58,9 @@ func NewCommand() *Command {
 func (cmd *Command) Run(args ...string) error {
 	var start, end string
 	fs := flag.NewFlagSet("export", flag.ExitOnError)
-	fs.StringVar(&cmd.dataDir, "datadir", os.Getenv("HOME")+"/.influxdb/data", "Data storage path")
-	fs.StringVar(&cmd.walDir, "waldir", os.Getenv("HOME")+"/.influxdb/wal", "WAL storage path")
-	fs.StringVar(&cmd.out, "out", os.Getenv("HOME")+"/.influxdb/export", "Destination file to export to")
+	fs.StringVar(&cmd.dataDir, "datadir", os.Getenv("HOME")+"/.rdb/data", "Data storage path")
+	fs.StringVar(&cmd.walDir, "waldir", os.Getenv("HOME")+"/.rdb/wal", "WAL storage path")
+	fs.StringVar(&cmd.out, "out", os.Getenv("HOME")+"/.rdb/export", "Destination file to export to")
 	fs.StringVar(&cmd.database, "database", "", "Optional: the database to export")
 	fs.StringVar(&cmd.retentionPolicy, "retention", "", "Optional: the retention policy to export (requires -database)")
 	fs.StringVar(&start, "start", "", "Optional: the start time to export (RFC3339 format)")
@@ -69,7 +69,7 @@ func (cmd *Command) Run(args ...string) error {
 
 	fs.SetOutput(cmd.Stdout)
 	fs.Usage = func() {
-		fmt.Fprintf(cmd.Stdout, "Exports TSM files into InfluxDB line protocol format.\n\n")
+		fmt.Fprintf(cmd.Stdout, "Exports TSM files into RDB line protocol format.\n\n")
 		fmt.Fprintf(cmd.Stdout, "Usage: %s export [flags]\n\n", filepath.Base(os.Args[0]))
 		fs.PrintDefaults()
 	}
@@ -210,7 +210,7 @@ func (cmd *Command) write() error {
 	}
 
 	s, e := time.Unix(0, cmd.startTime).Format(time.RFC3339), time.Unix(0, cmd.endTime).Format(time.RFC3339)
-	fmt.Fprintf(w, "# INFLUXDB EXPORT: %s - %s\n", s, e)
+	fmt.Fprintf(w, "# RDB EXPORT: %s - %s\n", s, e)
 
 	// Write out all the DDL
 	fmt.Fprintln(w, "# DDL")

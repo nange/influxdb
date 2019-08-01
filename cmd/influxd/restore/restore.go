@@ -565,8 +565,8 @@ func (cmd *Command) unpackTar(tarFile string) error {
 // printUsage prints the usage message to STDERR.
 func (cmd *Command) printUsage() {
 	fmt.Fprintf(cmd.Stdout, `
-Uses backup copies from the specified PATH to restore databases or specific shards from InfluxDB OSS
-  or InfluxDB Enterprise to an InfluxDB OSS instance.
+Uses backup copies from the specified PATH to restore databases or specific shards from RDB OSS
+  or RDB Enterprise to an RDB OSS instance.
 
 Usage: influxd restore -portable [options] PATH
 
@@ -577,11 +577,11 @@ Options:
     -portable 
             Required to activate the portable restore mode. If not specified, the legacy restore mode is used.
     -host  <host:port>
-            InfluxDB OSS host to connect to where the data will be restored. Defaults to '127.0.0.1:8088'.
+            RDB OSS host to connect to where the data will be restored. Defaults to '127.0.0.1:8088'.
     -db    <name>
-            Name of database to be restored from the backup (InfluxDB OSS or InfluxDB Enterprise)
+            Name of database to be restored from the backup (RDB OSS or RDB Enterprise)
     -newdb <name>
-            Name of the InfluxDB OSS database into which the archived data will be imported on the target system. 
+            Name of the RDB OSS database into which the archived data will be imported on the target system. 
             Optional. If not given, then the value of '-db <db_name>' is used.  The new database name must be unique 
             to the target system.
     -rp    <name>
