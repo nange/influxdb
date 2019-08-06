@@ -73,7 +73,7 @@ func NewConfig() Config {
 		PprofEnabled:          true,
 		DebugPprofEnabled:     false,
 		HTTPSEnabled:          false,
-		HTTPSCertificate:      "/etc/ssl/influxdb.pem",
+		HTTPSCertificate:      "/etc/ssl/rdb.pem",
 		MaxRowLimit:           0,
 		Realm:                 DefaultRealm,
 		UnixSocketEnabled:     false,

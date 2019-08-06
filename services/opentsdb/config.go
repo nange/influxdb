@@ -31,7 +31,7 @@ const (
 	DefaultBatchPending = 5
 
 	// DefaultCertificate is the default location of the certificate used when TLS is enabled.
-	DefaultCertificate = "/etc/ssl/influxdb.pem"
+	DefaultCertificate = "/etc/ssl/rdb.pem"
 )
 
 // Config represents the configuration of the OpenTSDB service.

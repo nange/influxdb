@@ -84,7 +84,7 @@ func (cmd *Command) Run(args ...string) error {
 
 	// Validate the configuration.
 	if err := config.Validate(); err != nil {
-		return fmt.Errorf("%s. To generate a valid configuration file run `influxd config > rdb.generated.conf`", err)
+		return fmt.Errorf("%s. To generate a valid configuration file run `rdbd config > rdb.generated.conf`", err)
 	}
 
 	var logErr error
