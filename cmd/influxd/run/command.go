@@ -17,6 +17,7 @@ import (
 
 	"github.com/influxdata/influxdb/logger"
 	"go.uber.org/zap"
+	"gopkg.in/natefinch/lumberjack.v2"
 )
 
 const logo = `
@@ -87,7 +88,13 @@ func (cmd *Command) Run(args ...string) error {
 	}
 
 	var logErr error
-	if cmd.Logger, logErr = config.Logging.New(cmd.Stderr); logErr != nil {
+	var logWriter io.Writer
+	if config.Logging.LogRotate {
+		logWriter = getLogRotateWriter(config)
+	} else {
+		logWriter = cmd.Stderr
+	}
+	if cmd.Logger, logErr = config.Logging.New(logWriter); logErr != nil {
 		// assign the default logger
 		cmd.Logger = logger.New(cmd.Stderr)
 	}
@@ -153,6 +160,19 @@ func (cmd *Command) Run(args ...string) error {
 	go cmd.monitorServerErrors()
 
 	return nil
+}
+
+func getLogRotateWriter(config *Config) io.Writer {
+	fileLog := config.Logging
+	l := &lumberjack.Logger{
+		Filename:   fileLog.Filename,
+		MaxSize:    fileLog.MaxSize,
+		MaxAge:     fileLog.MaxDays,
+		MaxBackups: fileLog.MaxBackups,
+		LocalTime:  true,
+	}
+
+	return l
 }
 
 // Close shuts down the server.
